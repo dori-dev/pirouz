@@ -1,1 +1,2 @@
 gunicorn==20.1.0
+WebOb==1.8.7
