@@ -1,7 +1,10 @@
 import inspect
+
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound, MethodNotAllowed
+
+from middleware import BaseMiddleware
 
 
 class TextResponse(Response):
@@ -12,14 +15,10 @@ class API():
     def __init__(self):
         self.routes = {}
         self.url_rules = Map()
+        self.middleware = BaseMiddleware(self)
 
     def __call__(self, environ, start_response):
-        return self.wsgi(environ, start_response)
-
-    def wsgi(self, environ, start_response):
-        request = Request(environ)
-        response = self.dispatch(request)
-        return response(environ, start_response)
+        return self.middleware(environ, start_response)
 
     def dispatch(self, request):
         adapter = self.url_rules.bind_to_environ(request)
