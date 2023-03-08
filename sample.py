@@ -14,7 +14,7 @@ class MyMiddleware(BaseMiddleware):
         return response
 
 
-app.middleware.add(MyMiddleware)
+app.add_middleware(MyMiddleware)
 
 
 @app.route('/')

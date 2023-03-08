@@ -20,6 +20,9 @@ class API():
     def __call__(self, environ, start_response):
         return self.middleware(environ, start_response)
 
+    def add_middleware(self, middleware_cls):
+        self.middleware.add(middleware_cls)
+
     def dispatch(self, request):
         adapter = self.url_rules.bind_to_environ(request)
         try:
