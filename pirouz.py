@@ -1,6 +1,6 @@
 import inspect
 
-from werkzeug.wrappers import Request, Response
+from werkzeug.wrappers import Response
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound, MethodNotAllowed
 

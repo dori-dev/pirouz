@@ -1,6 +1,20 @@
 from pirouz import API, TextResponse
+from middleware import BaseMiddleware
 
 app = API()
+
+
+class MyMiddleware(BaseMiddleware):
+    def process_request(self, request):
+        print('Processing request', request.url)
+        return request
+
+    def process_response(self, request, response):
+        print('Processing response', response)
+        return response
+
+
+app.middleware.add(MyMiddleware)
 
 
 @app.route('/')
