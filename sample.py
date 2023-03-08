@@ -1,4 +1,4 @@
-from pirouz import App, TextResponse
+from pirouz import App, TextResponse, Render
 from middleware import BaseMiddleware
 
 app = App()
@@ -31,7 +31,11 @@ app.add_middleware(OtherMiddleware)
 
 @app.route('/')
 def index(request):
-    return TextResponse("Index Page.")
+    context = {
+        'id': 1,
+        'users': ['Mohammad', 'Amir', 'Salar']
+    }
+    return Render('index.html', context=context, status=200)
 
 
 @app.route("/detail/", methods=["GET", "POST"])
