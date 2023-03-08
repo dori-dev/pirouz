@@ -1,7 +1,7 @@
-from pirouz import API, TextResponse
+from pirouz import App, TextResponse
 from middleware import BaseMiddleware
 
-app = API()
+app = App()
 
 
 class MyMiddleware(BaseMiddleware):
@@ -14,7 +14,19 @@ class MyMiddleware(BaseMiddleware):
         return response
 
 
+class OtherMiddleware(BaseMiddleware):
+    def process_request(self, request):
+        print('Other middleware in request.')
+        return request
+
+    def process_response(self, request, response):
+        print('Other middleware in response.')
+        return response
+
+
 app.add_middleware(MyMiddleware)
+app.add_middleware(OtherMiddleware)
+app.add_middleware(OtherMiddleware)
 
 
 @app.route('/')

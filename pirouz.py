@@ -11,7 +11,7 @@ class TextResponse(Response):
     pass
 
 
-class API():
+class App():
     def __init__(self):
         self.routes = {}
         self.url_rules = Map()
