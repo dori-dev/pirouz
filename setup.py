@@ -2,14 +2,19 @@
 python3 setup.py sdist
 python -m twine upload dist/*
 """
+import os
 import setuptools
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
+with open("requirements.txt") as f:
+    requires = f.read().splitlines()
+    print(requires)
+
 setuptools.setup(
     name="pirouz",
-    version="1.0.0",
+    version="2.1.2",
     author="Mohammad Dori",
     author_email="mr.dori.dev@gmail.com",
     description="A web framework built with Python.",
@@ -22,6 +27,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=setuptools.find_packages(),
-    install_requires=[],
+    install_requires=requires,
     python_requires=">=3.6",
 )
