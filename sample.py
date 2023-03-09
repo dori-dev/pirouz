@@ -1,7 +1,7 @@
 from pirouz import App, TextResponse, Render
 from middleware import BaseMiddleware
 
-app = App()
+app = App(__file__)
 
 
 class MyMiddleware(BaseMiddleware):
@@ -27,6 +27,8 @@ class OtherMiddleware(BaseMiddleware):
 app.add_middleware(MyMiddleware)
 app.add_middleware(OtherMiddleware)
 app.add_middleware(OtherMiddleware)
+
+app.serve_files()
 
 
 @app.route('/')

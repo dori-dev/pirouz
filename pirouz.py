@@ -4,6 +4,7 @@ import os
 from werkzeug.wrappers import Response
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound, MethodNotAllowed
+from werkzeug.middleware.shared_data import SharedDataMiddleware
 from jinja2 import Environment, FileSystemLoader
 
 from middleware import BaseMiddleware
@@ -31,15 +32,40 @@ class Render(Response):
 
 
 class App():
-    def __init__(self):
+    ROOT_DIR = None
+    config = {
+        'debug': True,
+        'reloader': True,
+        'export_dirs': {
+            '/static': 'static',
+            '/media': 'media',
+        },
+    }
+
+    def __init__(self, filename, production=False):
         self.routes = {}
         self.url_rules = Map()
         self.middleware = BaseMiddleware(self)
+        self.set_config(filename, production)
+
+    def set_config(self, filename, production):
+        if self.ROOT_DIR is None:
+            self.ROOT_DIR = os.path.dirname(filename)
+        if production:
+            self.config['debug'] = False
+
+    def set_export_dirs(self, export_dirs: dict):
+        export_dirs = export_dirs.copy()
+        for url, dir in export_dirs.items():
+            export_dirs[url] = os.path.join(self.ROOT_DIR, dir)
+        self.config['export_dirs'] = export_dirs
 
     def __call__(self, environ, start_response):
         return self.middleware(environ, start_response)
 
     def add_middleware(self, middleware_cls):
+        if isinstance(self.middleware, SharedDataMiddleware):
+            raise Exception("You can't add middleware after serving files!")
         self.middleware.add(middleware_cls)
 
     def dispatch(self, request):
@@ -96,3 +122,16 @@ class App():
             self.url_rules.add(rule)
             return handler
         return wrapper
+
+    def serve_files(self, use_defaults=True, export_dirs=None):
+        if self.config['debug'] is False:
+            raise Exception("You can't serve files in production mode!")
+        if export_dirs is None:
+            export_dirs = {}
+        if use_defaults:
+            export_dirs = self.config.get('export_dirs', {})
+        self.set_export_dirs(export_dirs)
+        self.middleware = SharedDataMiddleware(
+            self.middleware,
+            exports=self.config['export_dirs'],
+        )
