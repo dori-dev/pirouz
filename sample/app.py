@@ -1,5 +1,7 @@
-from pirouz import App, TextResponse, Render
-from middleware import BaseMiddleware
+from pirouz import (
+    App, TextResponse, Render, BaseMiddleware
+)
+
 
 app = App(__file__)
 
