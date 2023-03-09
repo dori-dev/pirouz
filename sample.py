@@ -62,3 +62,7 @@ def user(request, username):
 @app.route('/movie/<int:id>/')
 def movie(request, id):
     return TextResponse(f"Loading the movie with id {id}")
+
+
+if __name__ == '__main__':
+    app.run()

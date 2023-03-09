@@ -5,6 +5,7 @@ from werkzeug.wrappers import Response
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound, MethodNotAllowed
 from werkzeug.middleware.shared_data import SharedDataMiddleware
+from werkzeug.serving import run_simple
 from jinja2 import Environment, FileSystemLoader
 
 from middleware import BaseMiddleware
@@ -35,11 +36,12 @@ class App():
     ROOT_DIR = None
     config = {
         'debug': True,
-        'reloader': True,
         'export_dirs': {
             '/static': 'static',
             '/media': 'media',
         },
+        'host': '127.0.0.1',
+        'port': 8000,
     }
 
     def __init__(self, filename, production=False):
@@ -124,7 +126,7 @@ class App():
         return wrapper
 
     def serve_files(self, use_defaults=True, export_dirs=None):
-        if self.config['debug'] is False:
+        if self.config.get('debug', False) is False:
             raise Exception("You can't serve files in production mode!")
         if export_dirs is None:
             export_dirs = {}
@@ -134,4 +136,19 @@ class App():
         self.middleware = SharedDataMiddleware(
             self.middleware,
             exports=self.config['export_dirs'],
+        )
+
+    def run(self, host=None, port=None, debug=True, reloader=True):
+        if self.config.get('debug', False) is False:
+            raise Exception(
+                "You should use a web server in production mode!"
+            )
+        host = host or self.config.get('host', '127.0.0.1')
+        port = port or self.config.get('port', 8000)
+        run_simple(
+            host,
+            port,
+            self.middleware,
+            use_debugger=True,
+            use_reloader=reloader,
         )
