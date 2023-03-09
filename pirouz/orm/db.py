@@ -3,8 +3,8 @@ import os
 import sqlite3
 import inspect
 from typing import Dict, List, NamedTuple, Tuple, Union
-from dori_orm.operators import OPERATORS
-from dori_orm.columns import ForeignKey
+from .operators import OPERATORS
+from .columns import ForeignKey
 
 
 class GenerateTableName:
