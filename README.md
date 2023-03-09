@@ -6,3 +6,4 @@ A web framework built with Python.
 
 gunicorn -w 4 wsgi:app
 gunicorn -w 4 wsgi:app --reload
+pytest pirouz/test/ -v

@@ -6,12 +6,8 @@ from werkzeug.exceptions import HTTPException, NotFound, MethodNotAllowed
 from werkzeug.middleware.shared_data import SharedDataMiddleware
 from werkzeug.serving import run_simple
 
-try:
-    from .middleware import BaseMiddleware
-    from .response import TextResponse
-except:
-    from middleware import BaseMiddleware
-    from response import TextResponse
+from .middleware import BaseMiddleware
+from .response import TextResponse
 
 
 class App():
