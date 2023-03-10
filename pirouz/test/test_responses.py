@@ -1,3 +1,7 @@
+"""
+pytest pirouz/test/ -v
+"""
+
 from requests import Session
 import pytest
 from wsgiadapter import WSGIAdapter
