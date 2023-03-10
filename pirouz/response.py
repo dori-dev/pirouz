@@ -12,6 +12,7 @@ class TextResponse(Response):
 class Render(Response):
     def __init__(
         self,
+        request,
         template_name,
         template_dir="templates",
         context=None,
@@ -22,8 +23,12 @@ class Render(Response):
         self.templates_env = Environment(
             loader=FileSystemLoader(os.path.abspath(template_dir))
         )
+        context.update(self.get_context(request))
         text = self.templates_env.get_template(template_name).render(**context)
         super().__init__(text, content_type='text/html', **kwargs)
+
+    def get_context(self, request) -> dict:
+        return {}
 
 
 def redirect(url: str) -> Response:
