@@ -2,11 +2,15 @@
 
 A web framework built with Python.
 
+#
+
 ## Install Pirouz
 
 ```
 pip install pirouz
 ```
+
+#
 
 ## Imports
 
@@ -19,11 +23,15 @@ from pirouz import (
 from pirouz.utils import cleaned_data, encrypt
 ```
 
+#
+
 ## Create App
 
 ```python
 app = App(__file__)
 ```
+
+#
 
 ## Run Web Server
 
@@ -39,6 +47,8 @@ Run server using gunicorn:
 ```
 gunicorn -w 4 app:app --reload
 ```
+
+#
 
 ## Create Models
 
@@ -58,6 +68,8 @@ class Post(DB):
     like_count = columns.SmallInt(default=0)
     created = columns.Date()
 ```
+
+#
 
 ## Create Middleware
 
@@ -79,11 +91,15 @@ class AuthMiddleware(BaseMiddleware):
 app.add_middleware(AuthMiddleware)
 ```
 
+#
+
 ## Serve Files
 
 ```python
 app.serve_files()
 ```
+
+#
 
 ## Add Context Processor
 
@@ -97,6 +113,8 @@ class Render(Render_):
         }
 
 ```
+
+#
 
 ## Function View
 
@@ -113,6 +131,8 @@ def index(request):
     }
     return Render(request, 'post/list.html', context=context)
 ```
+
+#
 
 ## Class View
 
@@ -159,6 +179,8 @@ class PostCreate:
         return redirect(f'/post/{post.id}/')
 
 ```
+
+#
 
 ## Authentication
 
@@ -237,6 +259,8 @@ class Logout:
         return response
 
 ```
+
+#
 
 ## Search View
 
