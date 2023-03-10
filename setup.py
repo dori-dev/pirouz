@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pirouz",
-    version="2.4.3",
+    version="2.4.4",
     author="Mohammad Dori",
     author_email="mr.dori.dev@gmail.com",
     description="A web framework built with Python.",

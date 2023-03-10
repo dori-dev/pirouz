@@ -4,6 +4,13 @@ A web framework built with Python.
 
 #
 
+## Sample Weblog Project
+
+The simple weblog created with pirouz web framework.
+You can see weblog sources [here](/weblog/) before that install `pirouz` with pip in your system.
+
+#
+
 ## Install Pirouz
 
 ```
@@ -136,7 +143,7 @@ def index(request):
 
 ## Class View
 
-A detail view
+A detail view for detail of post.
 
 ```python
 @app.route('/post/<int:id>/')
@@ -155,7 +162,8 @@ class PostDetail:
         return self.get(request, id)
 ```
 
-A create view
+<br>
+A create view for create new post.
 
 ```python
 @app.route("/create/", methods=["GET", "POST"])
@@ -184,7 +192,7 @@ class PostCreate:
 
 ## Authentication
 
-Register
+Register view for sign up a user.
 
 ```python
 @app.route("/register/", methods=["GET", "POST"])
@@ -220,7 +228,9 @@ class Register:
 
 ```
 
-Login
+<br>
+
+Login view for user login.
 
 ```python
 @app.route("/login/", methods=["GET", "POST"])
@@ -245,7 +255,8 @@ class Login:
 
 ```
 
-Logout
+<br>
+Logout view for logout the user
 
 ```python
 
