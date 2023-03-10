@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p class="date">
+    Published at {{ post.created }}
+  </p>
+  <div class="data">
+    <div>
+      Published by {{ author.username }}
+    </div>
+    <div>
+      {{ post.like_count }} likes
+    </div>
+  </div>
+  <p class="body">
+    {% for line in post.body.split('\\r\\n') %}
+    <span>{{ line }}</span>  
+    <br>
+  {% endfor %}    
+  <br>
+  </p>
+{% endblock %}

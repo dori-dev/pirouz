@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}My Blog{% endblock %}
+
+{% block content %}  
+  {% if user %}
+  <h1>Hi "{{ user.username }}"</h1>
+  {% else %}
+  <h1>My Blog</h1>
+  {% endif %}
+  {% if search %}
+  <form action="" method="get">
+    <input type="text" name="search" id="search" placeholder="Search something...">
+    <input type="submit" value="Search">
+  </form>
+  {% endif %}
+  {% for post in posts %}
+    <div class="post">
+      <h2>
+        <a href="/post/{{post.id}}/">
+          {{ post.title }}
+        </a>
+      </h2>
+      <p class="date">
+        Published at {{ post.created }}
+      </p>
+    </div>
+  {% endfor %}
+  <br><br>
+{% endblock %}

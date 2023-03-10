@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}My Blog{% endblock %}
+
+{% block content %}  
+  <h1>Register</h1>
+  {% if exists %}
+    <h2 class="error">This user already exists!</h2>
+  {% endif %}
+  <form action="" method="post">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email">
+    <label for="first_name">First Name</label>
+    <input type="text" name="first_name" id="first_name">
+    <label for="last_name">Last Name</label>
+    <input type="text" name="last_name" id="last_name">
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}

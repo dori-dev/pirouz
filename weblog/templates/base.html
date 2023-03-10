@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="/static/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="sidebar">
+      <h2>
+        <a href="/">
+          Home
+        </a>
+      </h2>
+      <br>
+      {% if user %}
+        <div>
+          <a href="/create/" class="btn">Create Post</a>
+          <a href="/exit/" class="btn">Logout</a>
+        </div>
+      {% else %}
+        <div>
+          <a href="/login/" class="btn">Login</a>
+          <a href="/register/" class="btn">Register</a>
+        </div>
+      {% endif %}
+      <p>
+        This is my blog.
+        <br />
+        I've written {{ posts_count }} posts so far.
+      </p>
+      <p>
+        <a target="_blank" href="https://github.com/dori-dev">My GitHub</a>
+      </p>
+      <p>
+        <a href="/search/" class="btn">Search in posts</a>
+      </p>
+    </div>
+  </body>
+</html>
